@@ -1,0 +1,73 @@
+<?php
+require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../../config/database.php';
+
+
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    redirect('index.php');
+}
+
+// Ambil data lokasi yang akan diedit
+$stmt = $pdo->prepare("SELECT * FROM lokasi_gudang WHERE id_lokasi = ?");
+$stmt->execute([$id]);
+$lokasi = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$lokasi) {
+    $_SESSION['message'] = "Lokasi tidak ditemukan";
+    $_SESSION['message_type'] = "danger";
+    redirect('index.php');
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $kode_lokasi = $_POST['kode_lokasi'];
+    $nama_lokasi = $_POST['nama_lokasi'];
+    $kapasitas = $_POST['kapasitas'] ?: 0;
+    $deskripsi = $_POST['deskripsi'];
+
+    try {
+        $stmt = $pdo->prepare("UPDATE lokasi_gudang SET kode_lokasi = ?, nama_lokasi = ?, kapasitas = ?, deskripsi = ? WHERE id_lokasi = ?");
+        $stmt->execute([$kode_lokasi, $nama_lokasi, $kapasitas, $deskripsi, $id]);
+        
+        $_SESSION['message'] = "Lokasi gudang berhasil diperbarui";
+        $_SESSION['message_type'] = "success";
+        redirect('index.php');
+    } catch (PDOException $e) {
+        $error = "Gagal memperbarui lokasi gudang: " . $e->getMessage();
+    }
+}
+?>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit Lokasi Gudang</h4>
+    </div>
+    <div class="card-body">
+        <?php if (isset($error)): ?>
+            <?= alert($error, 'danger') ?>
+        <?php endif; ?>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label for="kode_lokasi" class="form-label">Kode Lokasi</label>
+                <input type="text" class="form-control" id="kode_lokasi" name="kode_lokasi" value="<?= htmlspecialchars($lokasi['kode_lokasi']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="nama_lokasi" class="form-label">Nama Lokasi</label>
+                <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" value="<?= htmlspecialchars($lokasi['nama_lokasi']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="kapasitas" class="form-label">Kapasitas</label>
+                <input type="number" class="form-control" id="kapasitas" name="kapasitas" value="<?= $lokasi['kapasitas'] ?>">
+            </div>
+            <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"><?= htmlspecialchars($lokasi['deskripsi']) ?></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            <a href="index.php" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
+</div>
+
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
