@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
 
-// Mulai session jika belum dimulai
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
