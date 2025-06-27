@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../config/database.php';
-
+require_once __DIR__ . '/../../includes/functions.php';
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
@@ -51,10 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         
         <form method="POST">
-            <div class="mb-3">
-                <label for="kode_produk" class="form-label">Kode Produk</label>
-                <input type="text" class="form-control" id="kode_produk" name="kode_produk" value="<?= htmlspecialchars($produk['kode_produk']) ?>" required>
-            </div>
             <div class="mb-3">
                 <label for="nama_produk" class="form-label">Nama Produk</label>
                 <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="<?= htmlspecialchars($produk['nama_produk']) ?>" required>

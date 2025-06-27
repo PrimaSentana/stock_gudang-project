@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../config/database.php';
-
+require_once __DIR__ . '/../../includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kode_lokasi = $_POST['kode_lokasi'];

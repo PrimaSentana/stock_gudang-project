@@ -1,10 +1,26 @@
 <?php
     require_once __DIR__ . '/../../includes/header.php';
     require_once __DIR__ . '/../../config/database.php';
+    require_once __DIR__ . '/../../includes/functions.php';
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $kode_produk = $_POST['kode_produk'];
+        $stmt = $pdo->prepare("SELECT kode_produk FROM produk ORDER BY kode_produk DESC LIMIT 1");
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!is_null($data)) {
+            $kproduk = $data['kode_produk'];
+            $a = substr($kproduk, 4);
+            $b = (int) $a;
+            $c = $b + 1;
+            $d = strlen($c);
+            $e = substr($a, 0, strlen($a) - $d);
+            $f = "PGB-" . $e . $c;
+            $kode_produk = $f;
+        } else {
+            $kode_produk = 'PGB-0001';
+        }
+
         $nama_produk = $_POST['nama_produk'];
         $deskripsi = $_POST['deskripsi'];
         $satuan = $_POST['satuan'];
@@ -35,10 +51,6 @@
             <?php endif; ?>
             
             <form method="POST">
-                <div class="mb-3">
-                    <label for="kode_produk" class="form-label">Kode Produk</label>
-                    <input type="text" class="form-control" id="kode_produk" name="kode_produk" required>
-                </div>
                 <div class="mb-3">
                     <label for="nama_produk" class="form-label">Nama Produk</label>
                     <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
