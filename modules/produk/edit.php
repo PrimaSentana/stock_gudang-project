@@ -20,7 +20,6 @@ if (!$produk) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $kode_produk = $_POST['kode_produk'];
     $nama_produk = $_POST['nama_produk'];
     $deskripsi = $_POST['deskripsi'];
     $satuan = $_POST['satuan'];
@@ -29,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stok_minimal = $_POST['stok_minimal'];
 
     try {
-        $stmt = $pdo->prepare("UPDATE produk SET kode_produk = ?, nama_produk = ?, deskripsi = ?, satuan = ?, harga_beli = ?, harga_jual = ?, stok_minimal = ? WHERE id_produk = ?");
-        $stmt->execute([$kode_produk, $nama_produk, $deskripsi, $satuan, $harga_beli, $harga_jual, $stok_minimal, $id]);
+        $stmt = $pdo->prepare("UPDATE produk SET nama_produk = ?, deskripsi = ?, satuan = ?, harga_beli = ?, harga_jual = ?, stok_minimal = ? WHERE id_produk = ?");
+        $stmt->execute([$nama_produk, $deskripsi, $satuan, $harga_beli, $harga_jual, $stok_minimal, $id]);
         
         $_SESSION['message'] = "Produk berhasil diperbarui";
         $_SESSION['message_type'] = "success";
