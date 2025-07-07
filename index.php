@@ -3,26 +3,26 @@ require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/config/database.php';
 
-// Hitung total produk
+
 $stmt = $pdo->query("SELECT COUNT(*) FROM produk");
 $total_produk = $stmt->fetchColumn();
 
-// Hitung total lokasi
+
 $stmt = $pdo->query("SELECT COUNT(*) FROM lokasi_gudang");
 $total_lokasi = $stmt->fetchColumn();
 
-// Hitung total stok masuk hari ini
+
 $today = date('Y-m-d');
 $stmt = $pdo->prepare("SELECT COUNT(*) FROM stok_masuk WHERE DATE(tanggal_masuk) = ?");
 $stmt->execute([$today]);
 $stok_masuk_hari_ini = $stmt->fetchColumn();
 
-// Hitung total stok keluar hari ini
+
 $stmt = $pdo->prepare("SELECT COUNT(*) FROM stok_keluar WHERE DATE(tanggal_keluar) = ?");
 $stmt->execute([$today]);
 $stok_keluar_hari_ini = $stmt->fetchColumn();
 
-// Ambil produk dengan stok rendah
+// cek stok rendah
 $stmt = $pdo->query("SELECT p.nama_produk, s.jumlah_stok, p.stok_minimal 
                      FROM stok_saat_ini s
                      JOIN produk p ON s.id_produk = p.id_produk
@@ -115,7 +115,7 @@ $stok_rendah = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="card-body">
                 <?php
-                // Ambil 5 aktivitas terakhir (gabungan stok masuk dan keluar)
+                // aktivitas terakhr
                 $query = "(SELECT 'Masuk' as jenis, tanggal_masuk as tanggal, id_produk, jumlah_masuk as jumlah, NULL as tipe, id_supplier as id_orang, 'supplier' as tipe_orang
                           FROM stok_masuk
                           ORDER BY tanggal_masuk DESC LIMIT 5)
@@ -144,7 +144,7 @@ $stok_rendah = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?= date('d/m/Y H:i', strtotime($item['tanggal'])) ?>
                                         <br>
                                         <?php
-                                        // Ambil nama produk
+                                        // get nama produk
                                         $stmt = $pdo->prepare("SELECT nama_produk FROM produk WHERE id_produk = ?");
                                         $stmt->execute([$item['id_produk']]);
                                         $produk = $stmt->fetch(PDO::FETCH_ASSOC);

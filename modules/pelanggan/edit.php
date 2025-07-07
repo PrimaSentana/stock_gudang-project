@@ -8,7 +8,7 @@ if (!$id) {
     redirect('index.php');
 }
 
-// Ambil data pelanggan yang akan diedit
+
 $stmt = $pdo->prepare("SELECT * FROM pelanggan WHERE id_pelanggan = ?");
 $stmt->execute([$id]);
 $pelanggan = $stmt->fetch(PDO::FETCH_ASSOC);
