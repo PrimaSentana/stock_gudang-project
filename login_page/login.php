@@ -77,7 +77,7 @@
             <button type="submit">Login</button>
         </form>
         <div class="link">
-            <p><a href="signup.php">Buat Akun!</a></p>
+            <p><a href="../signup_page/signup.php">Buat Akun!</a></p>
         </div>
     </div>
 </body>

@@ -60,7 +60,7 @@
             <button type="submit">Daftar</button>
         </form>
         <div class="link">
-            <p><a href="login_page/login.php">Sudah punya akun? Masuk!</a></p>
+            <p><a href="../login_page/login.php">Sudah punya akun? Masuk!</a></p>
         </div>
     </div>
 </body>
