@@ -1,9 +1,13 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: /stock_gudang/login_page/login.php"); // sesuaikan path jika perlu
+    exit();
+}
+
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/functions.php';
-
-
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
