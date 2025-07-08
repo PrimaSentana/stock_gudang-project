@@ -54,6 +54,13 @@
 <body>
     <div class="container">
         <h2>Buat Akun</h2>
+        <?php
+        if (isset($_GET['pesan'])) {
+            if ($_GET['pesan'] == "gagal") {
+                echo "<p style='color: red;'>Username sudah digunakan!</p>";
+            }
+        }  
+        ?>
         <form method="POST" action="proses_signup.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
