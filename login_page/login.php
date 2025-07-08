@@ -56,11 +56,10 @@
         <h2>Selamat Datang!</h2>
         <p>Silakan login untuk melanjutkan</p>
         <?php
-        if (isset($_GET['pesan']) && $_GET['pesan'] == "logout") {
-            echo "<p style='color: green;'>Anda berhasil logout.</p>";
+        if (isset($_GET['pesan']) && $_GET['pesan'] == 'logout') {
+            echo "<p style='color: green;'>Berhasil logout.</p>";
         }
         ?>
-
         <?php
         if (isset($_GET['pesan'])) {
             if ($_GET['pesan'] == "gagal") {
@@ -70,7 +69,7 @@
             }
         }  
         ?>
-        
+
         <form method="POST" action="cek_login.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
