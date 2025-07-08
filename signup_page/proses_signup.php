@@ -11,14 +11,14 @@ try {
     $userExists = $stmt->fetchColumn();
 
     if ($userExists > 0) {
-        echo "Username sudah digunakan! <a href='signup.php'>Kembali</a>";
+        header("Location: signup.php?pesan=gagal");
     } else {
         // Insert user baru
         $stmt = $pdo->prepare("INSERT INTO admin (username, password) VALUES (?, ?)");
         $success = $stmt->execute([$username, $password]);
 
         if ($success) {
-            header("Location: ../login_page/login.php?pesan=signup_berhasil");
+            header("Location: /stock_gudang/login_page/login.php?pesan=signup_berhasil");
             exit();
         } else {
             echo "Registrasi gagal.";
