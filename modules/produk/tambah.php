@@ -6,10 +6,11 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("SELECT kode_produk FROM produk ORDER BY kode_produk DESC LIMIT 1");
+        $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (!is_null($data)) {
-            $kproduk = $data['kode_produk'];
+        if (isset($data[0]['kode_produk'])) {
+            $kproduk = $data[0]['kode_produk'];
             $a = substr($kproduk, 4);
             $b = (int) $a;
             $c = $b + 1;

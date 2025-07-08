@@ -140,8 +140,11 @@ $pelangganList = getPelangganList($pdo);
                                         'Lain-lain' => 'bg-secondary'
                                     ];
                                     ?>
-                                    <span class="badge <?= $badge_class[$item['tipe_keluar']] ?>">
-                                        <?= $item['tipe_keluar'] ?>
+                                    <?php
+                                    $type = ucfirst(strtolower(trim($item['tipe_keluar'])));
+                                ?>
+                                    <span class="badge <?= $badge_class[$type] ?? 'bg-dark' ?>">
+                                        <?= htmlspecialchars($item['tipe_keluar']) ?>
                                     </span>
                                 </td>
                                 <td><?= $item['nama_pelanggan'] ?? '-' ?></td>

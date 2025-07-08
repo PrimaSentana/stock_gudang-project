@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+    <?php
+    if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+    }
+    ?>
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="/stock_gudang/index.php">Stock Control</a>
+            <a class="navbar-brand" href="/stok_gudang_project/stock_gudang-project/index.php">Stock Control</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,28 +25,38 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-bs-toggle="dropdown">Master Data</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/produk/index.php">Produk</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/lokasi/index.php">Lokasi Gudang</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/supplier/index.php">Supplier</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/pelanggan/index.php">Pelanggan</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/produk/index.php">Produk</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/lokasi/index.php">Lokasi Gudang</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/supplier/index.php">Supplier</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/pelanggan/index.php">Pelanggan</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="transaksiDropdown" role="button" data-bs-toggle="dropdown">Transaksi</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/stok/masuk.php">Stok Masuk</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/stok/keluar.php">Stok Keluar</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/stok/index.php">Stok Saat Ini</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/stok/masuk.php">Stok Masuk</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/stok/keluar.php">Stok Keluar</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/stok/index.php">Stok Saat Ini</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="laporanDropdown" role="button" data-bs-toggle="dropdown">Laporan</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/laporan/stok.php">Laporan Stok</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/laporan/masuk.php">Laporan Masuk</a></li>
-                            <li><a class="dropdown-item" href="/stock_gudang/modules/laporan/keluar.php">Laporan Keluar</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/laporan/stok.php">Laporan Stok</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/laporan/masuk.php">Laporan Masuk</a></li>
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/modules/laporan/keluar.php">Laporan Keluar</a></li>
                         </ul>
                     </li>
+                    <?php if (isset($_SESSION['username'])): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo htmlspecialchars($_SESSION['username']); ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/stok_gudang_project/stock_gudang-project/login_page/logout.php">Logout</a></li>
+                        </ul>
+                    </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
